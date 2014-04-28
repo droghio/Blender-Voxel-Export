@@ -98,16 +98,16 @@ if (len(selectedfaces) > 0):
         for f in selectedfaces:
             v = f.calc_center_median_weighted()
             try:
-                volume[math.floor(v[0])][math.floor(v[1])][math.floor(v[2])] = 1
+                volume[math.floor(v[0])][math.floor(v[1])][math.floor(v[2])] = f.material_index+1
                     
             except:
                 try:
                     volume[math.floor(v[0])][math.floor(v[1])] = {}
-                    volume[math.floor(v[0])][math.floor(v[1])][math.floor(v[2])] = 1
+                    volume[math.floor(v[0])][math.floor(v[1])][math.floor(v[2])] = f.material_index+1
                 except:
                     volume[math.floor(v[0])] = {}
                     volume[math.floor(v[0])][math.floor(v[1])] = {}
-                    volume[math.floor(v[0])][math.floor(v[1])][math.floor(v[2])] = 1
+                    volume[math.floor(v[0])][math.floor(v[1])][math.floor(v[2])] = f.material_index+1
 
 
         print(volume)
@@ -119,13 +119,16 @@ if (len(selectedfaces) > 0):
                 for z in range(int(max_coord[2])-int(min_coord[2])):
                     print(x+min_coord[0], y+min_coord[1], z+min_coord[2])
                     try:
-                        if (volume[x+min_coord[0]][y+min_coord[1]][z+min_coord[2]] == 1):
+                        if (volume[x+min_coord[0]][y+min_coord[1]][z+min_coord[2]]):
                             tracingblock = not tracingblock
                     except:
                         pass
 
                     if (tracingblock == 1):
-                        strip.append(1)
+                        try:
+                            strip.append(volume[x+min_coord[0]][y+min_coord[1]][z+min_coord[2]])
+                        except:
+                            strip.append(1)
                     else:
                         strip.append(0)
                 plane.append(strip)

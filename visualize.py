@@ -20,8 +20,8 @@ with open(filename, "rb") as file:
 for x in range(len(volume)):
     for y in range(len(volume[x])):
         for z in range(len(volume[x][y])):
-            if (volume[x][y][z] == 1):
-                queue.append((x, y, z))
+            if (volume[x][y][z] != 0):
+                queue.append((x, y, z, volume[x][y][z]))
 
 window = Render()
 window.pointqueue = queue

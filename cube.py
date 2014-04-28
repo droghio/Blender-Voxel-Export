@@ -83,7 +83,7 @@ class Render:
         glClearColor(0.0, 0.0, 0.0, 0.0)
         glShadeModel(GL_FLAT)
         glClearDepth(1.0)
-        glDepthFunc(GL_LESS)
+        #glDepthFunc(GL_LESS)
         glEnable(GL_LIGHTING)
         glEnable(GL_LIGHT0)
         #glEnable(GL_DEPTH_TEST)
@@ -97,6 +97,7 @@ class Render:
 
     def drawGrid(self, size):
         glColor3f(.2, .1, .2)
+        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.2, .1, .2]);
         glLineWidth(.05)
         glBegin(GL_LINES)
         for x in range(self.view_width/size): #draw horizontial lines
@@ -117,12 +118,12 @@ class Render:
         glLoadIdentity()             # clear the matrix
         glScalef(1.0, 1.0, 1.0)      # modeling transformation
 
-        self.rotateView() #Rotate our reference frame based on keyboard.
-        
         light_position = [ 0.0, 0.0, -1.0 ]
         GL_SPOT_CUTOFF = 500
         glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, light_position)
         glLightModelfv(GL_LIGHT_MODEL_AMBIENT, (1, 1, 1, .5))
+
+        self.rotateView() #Rotate our reference frame based on keyboard.
 
         self.drawGrid(size) #Draw our voxel grid.
         secondaryqueue = [] #A holder for our cursor path.
@@ -158,6 +159,11 @@ class Render:
         #For all our special points (the cursor paths)
         #change the color and trace its path with cubes.
         for point in secondaryqueue:
+            glColor3f(0.0, .5, .5)
+            glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [0, .5, .5]);
+            if point[3] == 2:
+                glColor3f(.5, .5, .5)
+                glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.5, .5, .5]);
             self.drawCube(math.floor(point[0]), math.floor(point[1]), math.floor(point[2]), size)
         glTranslate(size/2, size/2, size/2)
         #Restore original reference frame.
@@ -168,7 +174,7 @@ class Render:
     def rotateView(self):
         #Center our reference frame, rotate view around center
         #then move view back to original position.
-        glTranslate(self.view_width/2, self.view_height/2, 0)
+        glTranslate(self.view_width, self.view_height, 0)
         glRotatef(self.view_rotx, 1.0, 0.0, 0.0)
         glRotatef(self.view_roty, 0.0, 1.0, 0.0)
         glRotatef(self.view_rotz, 0.0, 0.0, 1.0)
@@ -182,7 +188,7 @@ class Render:
         glLoadIdentity()
         #Use orthographic view, we don't want the cubes peaking out from
         #their grid section.
-        glOrtho(0, w, 0, h, -h, h)
+        glOrtho(0, 2*w, 0, 2*h, -2*h, h*2)
         glMatrixMode (GL_MODELVIEW)
 
 

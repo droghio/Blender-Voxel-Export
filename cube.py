@@ -84,6 +84,8 @@ class Render:
         glShadeModel(GL_FLAT)
         glClearDepth(1.0)
         glDepthFunc(GL_LESS)
+        glEnable(GL_LIGHTING)
+        glEnable(GL_LIGHT0)
         #glEnable(GL_DEPTH_TEST)
         
 
@@ -114,8 +116,13 @@ class Render:
         glClear(GL_COLOR_BUFFER_BIT)
         glLoadIdentity()             # clear the matrix
         glScalef(1.0, 1.0, 1.0)      # modeling transformation
-    
+
         self.rotateView() #Rotate our reference frame based on keyboard.
+        
+        light_position = [ 0.0, 0.0, -1.0 ]
+        GL_SPOT_CUTOFF = 500
+        glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, light_position)
+        glLightModelfv(GL_LIGHT_MODEL_AMBIENT, (1, 1, 1, .5))
 
         self.drawGrid(size) #Draw our voxel grid.
         secondaryqueue = [] #A holder for our cursor path.

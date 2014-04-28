@@ -6,11 +6,12 @@
     but few can export this data into a voxel format while
     preserving empty interior space.
     
-    This add-on does just that.
+    This add-on does just that. (Or will soon.)
     Version 0.1a
     
     Reference:
         ideasman42 -> http://blender.stackexchange.com/questions/2776/how-to-read-vertices-of-quad-faces-using-python-api
+        blazingsentinal -> http://forums.blockaderunnergame.com/index.php?topic=1411.0
 """
 
 import bpy

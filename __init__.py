@@ -31,6 +31,7 @@ class VoxelizeOutput(bpy.types.Operator):
     bl_idname = "object.voxelize"        # unique identifier for buttons and menu items to reference.
     bl_label = "Save Voxelized Mesh"         # display name in the interface.
     bl_options = {'REGISTER', 'UNDO'}  # enable undo for the operator.
+    executionAttempts = 0;
     
     filepath = bpy.props.StringProperty(name="Save Location", description="Where to save the file.", subtype="FILE_PATH")
     #filepath = subtype(StringProperty='FILE_PATH')
@@ -117,34 +118,54 @@ class VoxelizeOutput(bpy.types.Operator):
             #If the voxels are not square and properly sized, resize them.
             print(len(selectedfaces))
             if (distance != 1):
-                bmesh.ops.scale(bm, vec=(1/distance, 1/distance, 1/distance), verts=bm.verts)
+
+                if (distance):
+                    print( "Mesh not the right size, each voxel should be 1 bu, rescaling to {0}x.".format(1/distance) )
+                    bmesh.ops.scale(bm, vec=(1/distance, 1/distance, 1/distance), verts=bm.verts)
+
+                else:
+                    #If this fails chances are our distance is zero due to rounding error.
+                    #We'll try scalling by a hundred and hope this is enough to resize it on the next run through.
+
+                    print("Mesh is way too small, each voxel should be 1 bu, attempting to scale by to 100x.")
+                    bmesh.ops.scale(bm, vec=(100, 100, 100), verts=bm.verts)
+
                 for f in bm.faces:
                     for v in f.verts:
+                        #Snap each coord to the nearest voxel corner (integer blender unit).
                         v.co[0] = math.ceil(v.co[0])
                         v.co[1] = math.ceil(v.co[1])
                         v.co[2] = math.ceil(v.co[2])
 
-		#Now let's try that again.
-		#First let's clean up this mess.
+                #Now let's try that again.
+                #First let's clean up this mess.
 
-	        obj = 0
-	        bm = 0
+                #obj = 0 That one is important.
+                bm = 0
 
-        	selectedfaces = []
-        	cur_coord = 0
-        	min_coord = []
-        	max_coord = []
-        	sizes = []
+                selectedfaces = []
+                cur_coord = 0
+                min_coord = []
+                max_coord = []
+                sizes = []
         
-        	volume = {}
-        	outputvolume = []
+                volume = {}
+                outputvolume = []
         
-        	axial_coords = []
-        	axis = 0
+                axial_coords = []
+                axis = 0
         
-        	distance = 0
+                distance = 0
 
-		self.execute(context)
+                if (self.executionAttempts < 5):
+                    self.executionAttempts+=1;
+                    return self.execute(context)
+
+                else:
+                    #We failed way too many times, something might be wrong.
+                    raise Exception("Too many mesh resizes attempted."+\
+                        "Try running the command again, check your mesh voxel size"+\
+                        " (each voxel should be 1 blender unit), and if that fails please file an issue report on github.")
         
             #Determine where there are voxels.
             else:

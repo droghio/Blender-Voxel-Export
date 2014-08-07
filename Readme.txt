@@ -27,3 +27,8 @@ Install instructions:
 	sudo yum install python3-numpy
 
 Pickle seems to come pre-installed now, so yay!
+
+
+    Now it's time to install the module itself.
+    
+    Copy the MCExport directory to ~/.config/blender/2.69/scripts/addons/ if you are using Fedora and blender 2.69.

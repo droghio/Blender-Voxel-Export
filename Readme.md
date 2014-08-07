@@ -38,7 +38,7 @@ That's it!
 So this part is a little tricky.
 
 There are two ways to use this program, and each way has different abilities.
-
+```
 Most people will want to quickly import their creations, so to use the simpler mode:
     1. Make your blender structure.
     2. Once you are finished go under modifiers, add a Remesh modifier (it's under the Generators column), and change its mode to "Block".
@@ -47,7 +47,7 @@ Most people will want to quickly import their creations, so to use the simpler m
     5. Hit the space button and type "Save Voxelized Mesh" and hit enter. (If this didn't work make sure you installed the module correctly.)
     6. Choose an output file location, DO NOT CHANGE THE .vox FILE EXTENSION!!! We'll fix that later.
     7. Hit enter and wait, the ui will lock up for a few seconds. The larger your structure the longer the wait, but even for crazy large landscapes (1000x1000x300+) it only takes a few minutes. For a 50x50x50 structure it should only take about 10 seconds.
-
+```
 So now you should have a .vox file, well now we need to change that to a schematic.
 In the project download there is a script called voxtomcedit.py, run it with
         python ./voxtomcedit.py path_to_vox.vox
@@ -58,7 +58,7 @@ YAY! Now you have a nice shiny schematic!
 From here I would use MCEdit to import the file into the world file of your choice.
 
 This is a cool and **pretty** quick way to get your structures into Minecraft, but it does have several shortcommings.
-
+```
    Pros:
        +Great for monument structures or walls.
        +Easy to do!
@@ -78,7 +78,7 @@ There is a more advanced method: you can build pre-voxeled structures.
     Cons:
        +Harder.
        +You need to build in a particular way.
- 
+ ```
 
 ###Details
 
@@ -101,11 +101,11 @@ Now with that in mind...
 
 
 ###Advanced Export
-
+```
 As I said above we have two options to actually voxelize our mesh:
    +Automatically (as shown above)
    +Or manually.
-
+```
 Manually modeling a voxel structure might seem like a cop out, but hey it works.
 
 The exporter scans the structure from the top down. When it hits a face in that lies in the xy place it either starts recording a voxel, changes the voxel column's color, or stops recording voxels.

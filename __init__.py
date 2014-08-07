@@ -138,8 +138,8 @@ class VoxelizeOutput(bpy.types.Operator):
                         v.co[2] = math.ceil(v.co[2])
 
                 #Now let's try that again.
-                #First let's clean up this mess.
 
+                #First let's clean up this mess.
                 #obj = 0 That one is important.
                 bm = 0
 
@@ -172,7 +172,7 @@ class VoxelizeOutput(bpy.types.Operator):
                 for f in selectedfaces:
                     v = f.calc_center_median_weighted()
                     try:
-                        volume[math.floor(v[0])][math.floor(v[1])][math.floor(v[2])] = f.material_index+1
+                        volume[math.floor(v[0])][math.floor(v[1])][math.floor(v[2])] = f.material_index+1 #This sets the block id from the material name.
                             
                     except:
                         try:

@@ -3,6 +3,13 @@ Blender-Voxel-Export
 
 ***Minecraft schematic exporter for Blender.***
 
+
+###SAMPLES
+
+![photo 1](https://cloud.githubusercontent.com/assets/3069222/3851794/cd97339a-1e9b-11e4-8d70-db5bb01fb514.JPG)
+![photo 2](https://cloud.githubusercontent.com/assets/3069222/3851795/cdbf0e9c-1e9b-11e4-883c-fb5e1df9a721.JPG)
+
+
 ###PREREQUISITES
 
 You need Blender 2.68+ installed on your system.

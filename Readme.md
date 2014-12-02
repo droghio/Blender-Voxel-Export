@@ -55,8 +55,10 @@ Most people will want to quickly import their creations, so to use the simpler m
     7. Hit enter and wait, the ui will lock up for a few seconds. The larger your structure the longer the wait, but even for crazy large landscapes (1000x1000x300+) it only takes a few minutes. For a 50x50x50 structure it should only take about 10 seconds.
 ```
 So now you should have a .vox file, well now we need to change that to a schematic.
-In the project download there is a script called voxtomcedit.py, run it with
+In the project download there is a script called voxtomcedit.py, run it with a python2 interpriter, usually:
         python ./voxtomcedit.py path_to_vox.vox
+        
+Although it might be something like python2.7, python2, etc.
 
 It will give a few status messages and create a .schematic of your file in the same location as the .vox.
 
@@ -169,7 +171,7 @@ Use grids sized to 1bu per voxel.
 
 Always extrude, or use cntrl d.
 
-Make sure your spacing in the x y and z dimensions is all the same, this is best when you use 1bu ber voxel.
+Make sure your spacing in the x y and z dimensions is all the same, this is best when you use 1bu per voxel.
 Make sub-parts in different layers and merge them together at the very end.
 Use different material names, the material select/deselect is very handy.
 
